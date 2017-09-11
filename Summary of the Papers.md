@@ -36,7 +36,20 @@
 
 # Multilingual word embedding
 ### [Bilbowa: Fast bilingual distributed representations without word alignments(2014)](https://arxiv.org/abs/1410.2455)
-### [An Autoencoder Approach to Learning Bilingual Word Representations](https://papers.nips.cc/paper/5270-an-autoencoder-approach-to-learning-bilingual-word-representations.pdf)
+- Motivation for Multilingual word embedding
+  - Goal: Learns word embeddings that can generalize over *different languages* and *different  NLP tasks*
+  - Why it is needed: For Transfer Learning. Labeled text data is abundant for only few languages(e.g. English), so it may be a good idea to transfer the representations from the languages with abundant labeled text data to the languages with scarce text data for a NLP task.
+- Previous Approaches
+  - Offline Alignment: Learn word embeddings for each languages separately, and learn the projection from one language to the other. The quality of a generalized projection is questionable.
+  - Parallel-Only: Train word embeddings simultaneously for both languages, using only the training sentences that can be aligned in parallel. Only utilizes limited amount of data.
+  - Jointly-Trained: Train monolingual word embeddings with cross-lingual penalized loss function. Slow to train.
+- Contributions
+  - Suggests alternative objective function to enhance the training speed using the Jointly-Trained Approach
+    - Replaces softmax objective with the noise-contrastive objective
+    - Sampling algorithm to approximate the cross-lingual loss
+- Limitations
+  - Still slow
+### [An Autoencoder Approach to Learning Bilingual Word Representations(2014)](https://papers.nips.cc/paper/5270-an-autoencoder-approach-to-learning-bilingual-word-representations.pdf)
 
 # Language Modeling
 ### [An Empirical Study of Smoothing Techniques for Language Modeling(1996)](http://aclweb.org/anthology/P96-1041)
