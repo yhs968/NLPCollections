@@ -36,7 +36,15 @@
 
 # Multilingual word embedding
 ### [Bilbowa: Fast bilingual distributed representations without word alignments(2014)](https://arxiv.org/abs/1410.2455)
+- Contributions
+- How it works
+- Notes
+- Limitations
 ### [An Autoencoder Approach to Learning Bilingual Word Representations](https://papers.nips.cc/paper/5270-an-autoencoder-approach-to-learning-bilingual-word-representations.pdf)
+- Contributions
+- How it works
+- Notes
+- Limitations
 
 # Language Modeling
 ### [An Empirical Study of Smoothing Techniques for Language Modeling(1996)](http://aclweb.org/anthology/P96-1041)
