@@ -117,7 +117,7 @@
 
 - Contributions
   - Proposes **distributed representation of words** to tackle the **curse of dimensionality** for discrete n-gram based language models
-  - Scales linearly
+  - Learns both the pdf for word distributions and the distributed representations of words in linear time.
 - How it works
   - Represent each words by **latent feature vectors**, so that similar words can have similar representations.
   - **Use Neural Networks to map the feature vectors to logits**, and output the word probabilities by letting the logits pass through another softmax layer.
@@ -133,19 +133,41 @@
   - Optimizes the training corpus log-likelihood using SGD
 - Limitations
   - Slow to train(at 2003)
+  - Context length should be fixed
 </details>
 
 # Contextual Language Model
 <details>
 <summary>
-<a href="https://arxiv.org/abs/1511.03962">Document Context Language Models(2015)</a>
+<a href="https://arxiv.org/pdf/1511.03962.pdf">Document Context Language Models(2015)</a>
 </summary>
+
+- Problems with Previous Language Models
+  - Neural Language Models(Bengio et al. 2003): supports only fixed-length context
+  - Recurrent Neural Network Language Models(2010)
+    - pros: Possible to condition on contexts of arbitrary length
+    - cons
+      - **Document-level context is ignored**: Context scope is limited to sentence-level, so information from the previous sentences are ignored.
+      - Problems with learning document-level context in conventional RNNLMs
+        - Conventonal RNNLMs learn Language Models on documents by regarding the whole document as a single sentence.
+        - Information decay:  In this case, meaningful document-level information fail to survive for a long time.
+        - Difficulty in learning: Since the whole document is feeded as an input, RNNLMs should deal with with many time steps when learning.
+- Document Context Language Models
+  - Contributions
+    - Incorporates the information from a previous setence as a context to the following sentence.
+    - 'Short-circuit' approach: Feed the information from a previous sentence **directly** to the LSTM layers that processes the current sentence.
 </details>
 
 <details>
 <summary>
 <a href="http://proceedings.mlr.press/v37/jernite15.pdf">A Fast Variational Approach for Learning Markov Random Field Language Models(2015)</a>
 </summary>
+
+- Contributions
+  - Proposes an Efficient Variational Inference Algorithm for MRF-based Language Models
+- vs Neural Language Models
+  - MRF LM optimizes the **global** data likelihood, given the order $K$ for the Markov Sequence Model. In contrast, Neural LMs try to extract one token at a time, and optimizes only locally.
+  - Each words(nodes) connect to their $K$ neighbors. The $K$ neighbors of a word is defined as the context of the word.
 </details>
 
 # Scalable RNN Language Model
