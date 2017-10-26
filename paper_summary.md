@@ -188,24 +188,94 @@
 <summary>
 <a href="https://nlp.stanford.edu/pubs/SocherHuvalManningNg_EMNLP2012.pdf">Semantic Compositionality through Recursive Matrix-Vector(2012)</a>
 </summary>
+
+- Contributions
+  - Matrix-vector representation of words + Recursive Neural Networks for semantic compositionality.
+  - Showed to work well for:
+    - learning compositionality for adverb-adjective pairs
+    - learning boolean operators of propositional logic
+    - sentiment detection
+    - learning the semantic relationships between words
+- How it works
+  - Matrix-vector representation of words
+    - Definition of compositionality
+      - The ability to learn vector representations for various types of phrases and sentences of arbitrary length.
+    - In terms of semantic compositionality, each words have two roles:
+      - operand/constituent
+        - a word(or a phrase) has a semantic meaning in itself.
+        - to express this role as an operand, a vector is attached to a word.
+      - operator
+        - a word(or a phrase) will change the meaning of nearby words
+        - to express this role as an operator, a matrix(linear transformation) is attached to a word.
+  - Recursive Neural Networks
+    - Split the inputs using a parse tree, and recursively composes the nodes using nonlinear transformations. i.e. applying recursive neural network on the nodes in a parse tree.
+- Limitations
+  - The performance is highly dependent on the parser.
+  - Too many parameters to learn
+  - Bias toward the topmost nodes in the parse tree
 </details>
 
 <details>
 <summary>
 <a href="http://www.aclweb.org/anthology/P14-1062">A Convolutional Neural Network for Modeling Sentences(2014)</a>
 </summary>
+
+- Contributions
+  - Proposes DCNN, which automatically learns semantic/syntatic compositionality
+  - DCNN automatically learns the feature graph, and does not rely on external parse tree.
+- Related Model: Max-TDNN
+  - Pros
+    - Sensitive to word orders
+    - Independent of external word features(e.g. parse tree)
+  - Weaknesses
+    - Narrow-type convolution: words at the margins are largely neglected
+    - Max-pooling: the order of feature occurences is ignored- 
+- How it works
+  - A **Feature Map** is defined as the follows:
+    - Wide-type convolution: mitigates the problem of words at the margin being neglected.
+    - k-max pooling
+      - (fixed)k-max pooling on the input layer
+        - for a given sequence, accept only the top-k values as the output
+        - the input to the intermediate layers will be independent of the length of the input sentences
+      - Dynamic k-max pooling on the intermediate layers
+        - k is a function of the input sentence length
+    - Nonlinear transformation
+  - Mutiple Feature Maps are stacked to form a DCNN model
+- Properties
+  - Sensitive to the word orders
+  - **Convolution and pooling layers automatically build internal feature graphs over each inputs**
+  - k-max pooling allows to draw features from words located relatively far from each other
 </details>
 
 <details>
 <summary>
 <a href="http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf">Convolutional Neural Networks for Sentence Classification(2014)</a>
 </summary>
+
+- Contribution
+  - Empirical evaluation of word-level CNNs for text classification tasks based on pretrained word embeddings(word2vec, Mikolov 2013).
+- How it works
+  - Comparison of CNN text classification models under various settings
+    - Models
+      - CNN + weight updates with random initialization
+      - CNN + static pretrained word embeddings
+      - CNN + pretrained word embeddings + fine tuning
+      - CNN + fined-tuned word embeddings + pretrained word embeddings
+  - CNNs + pretrained vectors + regularization(dropout, l2 regularization)
+- Results
+  - CNN text classifiers that leverage the pretrained vectors show state-of-the-art results in general, even without much tuning.
 </details>
 
 <details>
 <summary>
 <a href="https://arxiv.org/abs/1509.01626">Character-level Convolutional Neural Networks for Text Classifcation(2015)</a>
 </summary>
+
+- Contribution
+  - First character-level CNN model for text classification
+  - Comparable accuracy to traditional models, even without explicit features
+- Limitations
+  - Classification accuracy is somewhat questionable
 </details>
   
 # More Embeddings
@@ -213,12 +283,39 @@
 <summary>
 <a href="https://cs.stanford.edu/~quocle/paragraph_vector.pdf">Distributed Representation of Sentences and Documents(2014)</a>
 </summary>
+
+- Motivation
+  - Traditional representations have drawbacks
+    - BOW: word order is lost
+    - Bag-Of-ngrams: word order is only preserved within short context, data sparsity and high dimensionality
+- Contribution
+  - An unsupervised model for learning representations for a sentence/paragraph that can predict words in a sentence/paragraph
+- How it works
+  - paragraph vectors are unique among paragraphs
+  - word vectors are shared
+  - paragraph vectors are learned so that it can predict the sampled words in the corresponding paragraphs well(just like word2vec)
+- Limitation
 </details>
 
 <details>
 <summary>
 <a href="https://arxiv.org/pdf/1503.03578.pdf">LINE: Large-scale Information Network Embedding(2015)</a>
 </summary>
+
+- Contributions
+  - Scalable Network Network Embedding algorithm that considers both 1st order and 2nd order proximity of a network.
+- Proximity
+  - 1st order proximity: Measures the direct connectedness between nodes
+  - 2nd order proximity: Measures the shared neighborhood structures
+- Applications
+  - Word embedding: word networks constructed from a corpus
+  - Social network
+- Limitations
+  - Loose integration of 1st & 2nd order proximities: The paper naively concatenates the network embeddings learnt seperately from optimizing each objectives.
+  - Single-layer embedding
+- Possible Improvements
+  - Tighter integration of the learning objectives and parameters, using MRF formulation together with Variational Inference, maybe?
+  - Multi-layer embedding
 </details>
 
 # Deep Learning & Generative Models
@@ -226,25 +323,54 @@
 <summary>
 <a href="https://papers.nips.cc/paper/4613-a-neural-autoregressive-topic-model.pdf">A neural autoregressive topic model(2012)</a>
 </summary>
+
+- Motivations
+  - Replicated Softmax, a generalization of RBMs to model topics, was too slow to train on documents.
+- Contributions
+  - Low-computational complexity generative model for topic modelling
+- How it works
+  - Modifies the structure of the Replicated Softmax to lower the computational complexity
+  - Feedforward structure, where each conditional probability is computed by a tree of binary logistic regressions.
+  - Borrows some structure from NADE to obtain an efficient way to share the hidden layer parameters across the conditionals.
+  
 </details>
 
 <details>
 <summary>
 <a href="https://arxiv.org/pdf/1511.06038.pdf">Neural Variational Inference for Text Processing(2015)</a>
 </summary>
+
+- Motivation
+  - Traditional generative models were either too computationally heavy(MCMC), or too biased(Variational Inference)
+- Contributions
+  - VAE approach to Topic Modeling
+- Why it works well
+  - Latent variables give the ability to sum over all the possibilites in terms of semantics. i.e. Latent variables mitigates the overfitting.
 </details>
 
 # Sentiment Analysis
 <details>
 <summary>
-<a href="https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf">Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank(2013)</a>
+<a href="https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf">Hierarchical Attention networks for Document Classification(2016 NAACL)</a>
 </summary>
+
+- Contributions
+  - Bottom-up compositional model for modeling document hierarchy
+  - Exploits the attention mechanism to select important words & sentences that are importance for sentence & document representations
 </details>
 
 <details>
 <summary>
-<a href="http://www.aclweb.org/anthology/P15-1150">Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks(2015)</a>
+<a href="https://aclweb.org/anthology/D16-1058">Attention-based LSTM for Aspect-level Sentiment Classification(2016 EMNLP)</a>
 </summary>
+
+- Contribution
+  - First paper to use aspect embedding for sentiment classification task
+  - Attention + LSTM + aspect embedding
+
+- Different versions
+  - version 1: Concatenate aspect embedding and hidden state vectors of LSTMs
+  - version 2: Concatenate aspect embedding to the hidden states AND the inputs
 </details>
 
 # Machine Translation
@@ -273,18 +399,6 @@
 </details>
 
 # Parsing
-<details>
-<summary>
-<a href="https://homes.cs.washington.edu/~lsz/papers/zc-uai05.pdf">Learning to Map Sentences to Logical Form: Structured Classification with Probabilistic Categorial Grammars(2005)</a>
-</summary>
-</details>
-
-<details>
-<summary>
-<a href="https://nlp.stanford.edu/pubs/SocherBauerManningNg_ACL2013.pdf">Parsing with Compositional Vector Grammers(2013)</a>
-</summary>
-</details>
-
 <details>
 <summary>
 <a href="https://cs.stanford.edu/~danqi/papers/emnlp2014.pdf">A Fast and Accurate Dependency Parser using Neural Networks(2014)</a>
@@ -357,5 +471,18 @@
 <details>
 <summary>
 <a href="https://arxiv.org/pdf/1502.03044.pdf">Show, attend and tell: Neural image caption generation with visual attention(2015)</a>
+</summary>
+</details>
+
+# Summarization
+<details>
+<summary>
+<a href="http://aclweb.org/anthology/D17-1222">Extractive Summarization Using Multi-Task Learning with Document Classification(2017 EMNLP)</a>
+</summary>
+</details>
+
+<details>
+<summary>
+<a href="http://www.aclweb.org/anthology/P16-1046">Neural Summarization by Extracting Sentences and Words(2016 ACL)</a>
 </summary>
 </details>
