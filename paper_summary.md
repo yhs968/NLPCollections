@@ -6,7 +6,7 @@
 
 - Contributions
   - Neural-Net based general framework which is applicable to variety of NLP tasks
-    - POS tagging, chunking, NER, Semantic role labeling, Parsing, Anaphora resolution, word-sense disambiguation, ...
+    - POS tagging, chunking, NER, Seman\tic role labeling, Parsing, Anaphora resolution, word-sense disambiguation, ...
 
 - Fully-supervised approach
   - Features for words are extracted
@@ -18,7 +18,7 @@
   - Learn language models from a large-scale unlabeled data
   - Transfer Learning: Initialize the the word embeddings for supervised learning, using the parameters learned from unsupervised language models.
 
-- Reference: 
+- Reference:
 </details>
 <details>
 <summary>
@@ -182,7 +182,7 @@
 <a href="https://arxiv.org/abs/1602.02410">Exploring the Limits of Language Modeling</a>
 </summary>
 </details>
-  
+
 # Text Classification
 <details>
 <summary>
@@ -229,7 +229,7 @@
     - Independent of external word features(e.g. parse tree)
   - Weaknesses
     - Narrow-type convolution: words at the margins are largely neglected
-    - Max-pooling: the order of feature occurences is ignored- 
+    - Max-pooling: the order of feature occurences is ignored-
 - How it works
   - A **Feature Map** is defined as the follows:
     - Wide-type convolution: mitigates the problem of words at the margin being neglected.
@@ -277,7 +277,7 @@
 - Limitations
   - Classification accuracy is somewhat questionable
 </details>
-  
+
 # More Embeddings
 <details>
 <summary>
@@ -332,7 +332,7 @@
   - Modifies the structure of the Replicated Softmax to lower the computational complexity
   - Feedforward structure, where each conditional probability is computed by a tree of binary logistic regressions.
   - Borrows some structure from NADE to obtain an efficient way to share the hidden layer parameters across the conditionals.
-  
+
 </details>
 
 <details>
@@ -376,26 +376,79 @@
 # Machine Translation
 <details>
 <summary>
-<a href="http://www.aclweb.org/anthology/J93-2003">The Mathematics of Statistical Machine Translation: Parameter Estimation(2003)</a>
+<a href="http://www.aclweb.org/anthology/J93-2003">The Mathematics of Statistical Machine Translation: Parameter Estimation(2003 Computational Linguistics)</a>
 </summary>
+
+- Contribution
+  - Describes a General Framework on Machine Translations
+  - 5 Models for Machine Translations are proposed
+
 </details>
 
 <details>
 <summary>
-<a href="https://arxiv.org/pdf/1609.07730.pdf">Lattice-Based Recurrent Neural Network Encoders for Neural Machine Translation(2016)</a>
+<a href="https://arxiv.org/pdf/1609.07730.pdf">Lattice-Based Recurrent Neural Network Encoders for Neural Machine Translation(2017 AAAI)</a>
 </summary>
+
+- Contribution
+  - Introduced the concept of "Word Lattice" to the Machine Translation field.
+  - A useful solution to a language that is hard to tokenize(e.g. Chinese, Japanese)
+
+- How it works
+  - Overall structure follows that of [Bahdanau, 2015](https://arxiv.org/abs/1409.0473), except for how input is constructed.
+  - Represents a sentence as a 'Word Lattice', where
+    - a word lattice is a **DiGraph** $G(V,E)$, where
+    - $V$ is a set of possible word boundaries
+    - $E$ corresponds to a set of the following inputs from the departing vertex to the destination vertex:
+      - input word $x_t$
+      - hidden state $h_t$ that is produced from the RNN
+
+- Limitations
+  - Relys on external tokenizers
 </details>
 
 <details>
 <summary>
-<a href="https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf">Sequence to Sequence Learning with Neural Networks(2014)</a>
+<a href="https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf">Sequence to Sequence Learning with Neural Networks(2014 NIPS)</a>
 </summary>
+
+- Motivation
+  - Many practical applications require a model that can handle a **variable-length input**.
+  - Traditional DNNs could not handle variable-length inputs well
+
+- Contribution
+  - Introduction of RNN Encoder-Decoder structure, which can handle variable length input with RNNs.
+
+- How it works
+  - RNN Encoder-Decoder
+    1. RNN encoder encodes the information from a variable-length input into a fixed-length vector
+    2. RNN decoder decodes the information from the fixed-length vector to produce **variable-length outputs**
+  - Reversing the input sequence
+    - Somehow, reversing the input sequence seems to help the RNN encoder-decoder learn long-term dependencies better.
+
+- Limitations
+  - All information from input sequences should be squeezed into a fixed-length vector.
+  - This problem is later mitigated by the **attention mechanism**
 </details>
 
 <details>
 <summary>
-<a href="https://arxiv.org/abs/1409.0473">Neural machine translation by jointly learning to align and translate</a>
+<a href="https://arxiv.org/abs/1409.0473">Neural machine translation by jointly learning to align and translate(2015 ICLR)</a>
 </summary>
+
+- Motivation
+  - A naive RNN encoder-decoder model had to squeeze all the information from an input sequence into a fixed-length vector
+  - This problem prevented RNN encoder-decoder models from learning long-term dependencies well.
+
+- Contribution
+  - Introduced attention mechanism to NMT
+  - An RNN encoder-decoder structure equipped with an attention mechanism to tackle NMT tasks effectively.
+
+- How it works
+  - Basic structure of the NMT is the same as the usual RNN encoder-decoder model
+  - Unlike in the usual RNN encoder-decoder model, a context vector is produced for **every word** the model predicts, using attention mechanism.
+  - During translation, attention mechanism decides which positions of an input sequence is important for producing each context vectors.
+
 </details>
 
 # Parsing
@@ -454,6 +507,8 @@
 <summary>
 <a href="https://arxiv.org/pdf/1411.4555.pdf">Show and Tell: A Neural Image Caption Generator(2014)</a>
 </summary>
+
+
 </details>
 
 <details>
