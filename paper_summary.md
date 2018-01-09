@@ -508,6 +508,12 @@
 <a href="https://arxiv.org/pdf/1411.4555.pdf">Show and Tell: A Neural Image Caption Generator(2014)</a>
 </summary>
 
+- Motivation
+  - RNN encoder-decoder structure achieved a remarkable success in Machine Translation.
+- Contribution
+  - End-to-end translation approach for image captioning. **Regards image captioning as a translation from an image to the corresponding description**.
+- How it works
+  - Uses a CNN to encode images, and feed the encoded image as an input to the following RNN layers.
 
 </details>
 
