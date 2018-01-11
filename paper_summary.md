@@ -136,10 +136,14 @@
   - Context length should be fixed
 </details>
 
+<details>
+<summary><a href="https://arxiv.org/pdf/1612.08083.pdf">Language Modeling with Gated Convolutional Networks(2016 arXiv)</a></summary>
+</details>
+
 # Contextual Language Model
 <details>
 <summary>
-<a href="https://arxiv.org/pdf/1511.03962.pdf">Document Context Language Models(2015)</a>
+<a href="https://arxiv.org/pdf/1511.03962.pdf">Document Context Language Models(2016 ICLR)</a>
 </summary>
 
 - Problems with Previous Language Models
@@ -156,6 +160,10 @@
   - Contributions
     - Incorporates the information from a previous setence as a context to the following sentence.
     - 'Short-circuit' approach: Feed the information from a previous sentence **directly** to the LSTM layers that processes the current sentence.
+</details>
+
+<details>
+<summary><a href="http://www.aclweb.org/anthology/P16-1125">Larger-Context Language Modeling with Recurrent Neural Network(2016 ACL)</a></summary>
 </details>
 
 <details>
