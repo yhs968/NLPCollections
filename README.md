@@ -1,8 +1,3 @@
-# cs671-kaist
-Implementations for the CS671 class(Advanced Machine Learning)@KAIST
-- Image Captioning
-- Question and Answering
-- Text Classification
-- Sentiment Analysis
-- Neural Machine Translation
-- Topic Modeling
+Repository for NLP materials that I collected during my research.
+- papers: summary of the papers that I read
+- src: My implementation for some of the NLP algortihms
